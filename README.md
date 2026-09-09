@@ -1,0 +1,1 @@
+# lcrr-astroshop-participantes
