@@ -1,5 +1,5 @@
-﻿{
-  "servers": {
+{
+  "mcpServers": {
     "dynatrace": {
       "type": "stdio",
       "command": "npx",

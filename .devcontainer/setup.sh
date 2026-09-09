@@ -1,6 +1,5 @@
 #!/bin/bash
 # Se ejecuta automáticamente al crear el Codespace.
-# Instala dtctl, el skill, configura dtctl e inyecta el token de Dynatrace en el mcp.json.
 
 set -e
 echo "=== Configurando el entorno del lab ==="
@@ -14,7 +13,7 @@ export PATH="$PATH:$HOME/.local/bin"
 echo "[2/4] Instalando el skill de dtctl para Claude..."
 dtctl skills install --for claude 2>/dev/null || echo "   (instala el skill con: dtctl skills install --for claude)"
 
-# --- 3. Configurar dtctl con el token de Dynatrace ---
+# --- 3. Configurar dtctl ---
 echo "[3/4] Configurando dtctl..."
 if [ -n "$DT_PLATFORM_TOKEN" ]; then
   echo 'export DTCTL_TOKEN_STORAGE=file' >> ~/.bashrc
@@ -29,23 +28,24 @@ else
   echo "   AVISO: no se encontró DT_PLATFORM_TOKEN."
 fi
 
-# --- 4. Inyectar el token de Dynatrace en el mcp.json ---
+# --- 4. Crear .mcp.json en la raíz (que es lo que Claude Code lee) con el token inyectado ---
 echo "[4/4] Configurando el MCP de Dynatrace..."
-if [ -n "$DT_PLATFORM_TOKEN" ] && [ -f ".vscode/mcp.json" ]; then
-  sed -i "s|TU_TOKEN_DYNATRACE|${DT_PLATFORM_TOKEN}|g" .vscode/mcp.json
-  echo "   Token de Dynatrace inyectado en el MCP."
+if [ -n "$DT_PLATFORM_TOKEN" ] && [ -f "mcp-template.json" ]; then
+  cp mcp-template.json .mcp.json
+  sed -i "s|TU_TOKEN_DYNATRACE|${DT_PLATFORM_TOKEN}|g" .mcp.json
+  echo "   .mcp.json creado con el token de Dynatrace inyectado."
 else
-  echo "   AVISO: no se pudo inyectar el token de Dynatrace en el mcp.json."
+  echo "   AVISO: no se pudo crear .mcp.json (falta token o plantilla)."
 fi
 
 echo ""
 echo "=========================================="
 echo "  Entorno listo"
 echo "=========================================="
-echo "El MCP de Dynatrace y dtctl ya estan configurados."
+echo "dtctl y el MCP de Dynatrace ya estan configurados."
 echo ""
 echo "Solo faltan 3 pasos:"
 echo "  1. Copia tu instruction file:   cp CLAUDE-0X.md CLAUDE.md   (X = tu numero)"
-echo "  2. Pon tu token de GitHub en .vscode/mcp.json (reemplaza TU_TOKEN_GITHUB)"
+echo "  2. Pon tu token de GitHub en .mcp.json (reemplaza TU_TOKEN_GITHUB)"
 echo "  3. Recarga la ventana:  Ctrl+Shift+P > Reload Window"
 echo ""
