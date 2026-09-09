@@ -1,0 +1,20 @@
+﻿{
+  "servers": {
+    "dynatrace": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@latest"],
+      "env": {
+        "DT_ENVIRONMENT": "https://ulk04354.sprint.apps.dynatracelabs.com",
+        "DT_PLATFORM_TOKEN": "TU_TOKEN_DYNATRACE"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer TU_TOKEN_GITHUB"
+      }
+    }
+  }
+}

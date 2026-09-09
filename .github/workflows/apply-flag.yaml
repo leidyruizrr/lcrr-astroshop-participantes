@@ -1,0 +1,62 @@
+﻿name: Apply flagd state to cluster
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "flags/payment-*.yaml"
+  workflow_dispatch:
+
+jobs:
+  apply-flag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect which participant file changed
+        id: detect
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep "flags/payment-[0-9]*.yaml" | head -1)
+          if [ -z "$CHANGED" ]; then
+            echo "No participant flag file changed. Nothing to do."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          NUM=$(echo "$CHANGED" | grep -oE "[0-9]+")
+          echo "num=$NUM" >> "$GITHUB_OUTPUT"
+          echo "namespace=astroshop-$NUM" >> "$GITHUB_OUTPUT"
+          VALUE=$(grep "paymentFailure:" "$CHANGED" | awk "{print \$2}" | tr -d "\"")
+          echo "value=$VALUE" >> "$GITHUB_OUTPUT"
+          echo "Participante $NUM | flag deseado: $VALUE"
+
+      - name: Configure kubectl
+        if: steps.detect.outputs.skip != 'true'
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets[format('KUBECONFIG_DATA_{0}', steps.detect.outputs.num)] }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Patch flagd ConfigMap
+        if: steps.detect.outputs.skip != 'true'
+        run: |
+          NS="${{ steps.detect.outputs.namespace }}"
+          DESIRED="${{ steps.detect.outputs.value }}"
+          if [ "$DESIRED" = "on" ]; then VARIANT="100%"; else VARIANT="off"; fi
+          echo "Aplicando defaultVariant: $VARIANT en $NS"
+          CURRENT=$(kubectl get configmap flagd-config -n "$NS" -o jsonpath="{.data.demo\.flagd\.json}")
+          UPDATED=$(echo "$CURRENT" | python3 -c "
+          import sys, re
+          d = sys.stdin.read()
+          d = re.sub(r'(\"paymentFailure\":\s*\{\s*\"defaultVariant\":\s*)\"[^\"]*\"', r'\1\"$VARIANT\"', d)
+          print(d)
+          ")
+          kubectl patch configmap flagd-config -n "$NS" --type merge -p "{\"data\":{\"demo.flagd.json\":$(echo "$UPDATED" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')}}"
+
+      - name: Restart flagd to reload flag
+        if: steps.detect.outputs.skip != 'true'
+        run: |
+          kubectl rollout restart deployment/flagd -n "${{ steps.detect.outputs.namespace }}"
+          echo "flagd reiniciado en ${{ steps.detect.outputs.namespace }}."
