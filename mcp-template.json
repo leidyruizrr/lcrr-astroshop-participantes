@@ -1,12 +1,10 @@
-{
+﻿{
   "mcpServers": {
     "dynatrace": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@latest"],
-      "env": {
-        "DT_ENVIRONMENT": "https://ulk04354.sprint.apps.dynatracelabs.com",
-        "DT_PLATFORM_TOKEN": "TU_TOKEN_DYNATRACE"
+      "url": "https://ulk04354.sprint.apps.dynatracelabs.com/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp",
+      "transport": "streamable-http",
+      "headers": {
+        "Authorization": "Bearer TU_TOKEN_DYNATRACE"
       }
     },
     "github": {
