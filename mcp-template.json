@@ -1,8 +1,8 @@
 ﻿{
   "mcpServers": {
     "dynatrace": {
+      "type": "streamable-http",
       "url": "https://ulk04354.sprint.apps.dynatracelabs.com/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp",
-      "transport": "streamable-http",
       "headers": {
         "Authorization": "Bearer TU_TOKEN_DYNATRACE"
       }
