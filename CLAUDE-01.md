@@ -14,7 +14,7 @@ consulta sobre el estado, errores, rendimiento o remediación de la aplicación.
   telemetría y es único para ti. No dependas de los primary tags para aislar tus
   datos; usa el namespace.
 - **Tu archivo de flag es `flags/payment-01.yaml`** en el repositorio
-  `leidyruizrr/lcrr-astroshop-lab`.
+  `leidyruizrr/lcrr-astroshop-participantes`.
 
 ---
 
