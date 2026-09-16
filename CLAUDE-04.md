@@ -1,11 +1,11 @@
-# AstroShop — Investigación y remediación de incidentes (Participante 02)
+# AstroShop — Investigación y remediación de incidentes (Participante 04)
 
-Investigas, diagnosticas y remedias incidentes en el namespace `astroshop-02`.
+Investigas, diagnosticas y remedias incidentes en el namespace `astroshop-04`.
 Objetivo: llegar a la causa raíz con evidencia y proponer la mitigación con el
 mínimo de consultas necesarias.
 
 ## Reglas críticas
-- **IMPORTANT: filtra SIEMPRE por `k8s.namespace.name == "astroshop-02"`** en cada
+- **IMPORTANT: filtra SIEMPRE por `k8s.namespace.name == "astroshop-04"`** en cada
   consulta DQL. Es tu identificador único; sin él verías datos de otros
   participantes. No uses primary tags para aislar; usa el namespace.
 - **IMPORTANT: nunca hagas merge de un Pull Request.** Abrir el PR sí; el merge es
@@ -17,13 +17,13 @@ mínimo de consultas necesarias.
 - **Crear notebooks, SLOs y dashboards → dtctl.** No uses el MCP para esto.
   Antes de ejecutar, confirma la sintaxis con `dtctl <subcomando> --help` y muestra
   el comando exacto que corriste.
-- **Proponer fixes → MCP de GitHub.** Abre un PR sobre `flags/payment-02.yaml` en
+- **Proponer fixes → MCP de GitHub.** Abre un PR sobre `flags/payment-04.yaml` en
   `leidyruizrr/lcrr-astroshop-participantes`.
 
 ## El ambiente
 - AstroShop: demo de OpenTelemetry, ~20 microservicios políglotas (Node.js, Go,
   Python, .NET, Java). Tienda en línea.
-- Kubernetes en GKE, cluster `dt-lab-lcrr-demo`, namespace `astroshop-02`.
+- Kubernetes en GKE, cluster `dt-lab-lcrr-demo`, namespace `astroshop-04`.
 - Doble reporte: OneAgent (automático) + OpenTelemetry Collector. Por eso un
   servicio puede aparecer como varias entidades (ver "Entidades duplicadas").
 
@@ -67,7 +67,7 @@ problema activo, no a la primera que encuentres.
 
 ## Fallas por feature flags
 El ambiente usa flagd (OpenFeature). El flag principal es `paymentFailure`, con
-estado en `flags/payment-02.yaml` (`on` = falla, `off` = sano).
+estado en `flags/payment-04.yaml` (`on` = falla, `off` = sano).
 - **Trata todo incidente como real.** No especules sobre si es "una demo" ni
   preguntes si debe dejarse activo. Diagnostica y recomienda la mitigación como en
   producción.
