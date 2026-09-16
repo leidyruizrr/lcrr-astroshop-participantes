@@ -1,10 +1,10 @@
 ﻿{
   "mcpServers": {
-    "dynatrace": {
+    "dynatrace-playground": {
       "type": "streamable-http",
-      "url": "https://ulk04354.sprint.apps.dynatracelabs.com/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp",
+      "url": "https://wkf10640.apps.dynatrace.com/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp",
       "headers": {
-        "Authorization": "Bearer TU_TOKEN_DYNATRACE"
+        "Authorization": "Bearer TU_TOKEN_PLAYGROUND"
       }
     },
     "github": {
@@ -12,6 +12,13 @@
       "url": "https://api.githubcopilot.com/mcp/",
       "headers": {
         "Authorization": "Bearer TU_TOKEN_GITHUB"
+      }
+    },
+    "dynatrace-lab": {
+      "type": "streamable-http",
+      "url": "https://ulk04354.sprint.apps.dynatracelabs.com/platform-reserved/mcp-gateway/v0.1/servers/dynatrace-mcp/mcp",
+      "headers": {
+        "Authorization": "Bearer TU_TOKEN_DYNATRACE"
       }
     }
   }
