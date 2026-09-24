@@ -29,7 +29,7 @@ Flujo de trabajo:
 2. Abrir la terminal y ejecutar el siguiente comando: esto creará el instruction file de este nuevo laboratorio
   * Reemplazar el X por el identificador dado a cada participante `CLAUDE-01, CLAUDE-02, CLAUDE-03, etc`
 ```
-cp CLAUDE-0X.md CLAUDE.md
+cp lab2/CLAUDE-0X.md CLAUDE.md
 ```
 3. Abrir la paleta de comandos (`Ctrl+Shift+P`) y ejecuta **Reload Window**. Para que cargue los cambios.
 4. Abrir el Chat `Ctrl+Alt+I` → Cambiar a Claude Code
