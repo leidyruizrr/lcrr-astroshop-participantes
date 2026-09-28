@@ -30,7 +30,18 @@ En este lab construyes ese manual en **5 pasos**. En cada paso agregas una capa 
 * Permissions → Repository: Contents (Read/write) y Pull requests (Read/write)
 * Generate token → copiar el token y guardarlo
 
-## Paso 2 - Crear el Codespace
+
+## Paso 2 - Habilitar el Flag de Fallos
+* Ir al repositorio [Repo con Claude](https://github.com/leidyruizrr/lcrr-astroshop-participantes)
+* Click en el directorio de `flags` 
+* Identificar su archivo con su ID de participante
+* Click en editar (Lapiz de lado derecho)
+* Cambiar `off` por `on`
+* Click en el boton verde de `Commit changes`
+* Dejarlo en `Commit directly to the main branch` y aceptar
+
+
+## Paso 3 - Crear el Codespace
 
 1. Entrar al link del repositorio [Repo con Claude](https://github.com/leidyruizrr/lcrr-astroshop-participantes)
 2. Haz clic en el botón verde **Code**.
@@ -39,7 +50,7 @@ En este lab construyes ese manual en **5 pasos**. En cada paso agregas una capa 
 5. Espera 2-3 minutos mientras GitHub prepara el entorno (se abrirá VS Code en el navegador).
 
 
-## Paso 3  - Iniciar el Workspace & Iniciar el MCP server
+## Paso 4  - Iniciar el Workspace & Iniciar el MCP server
 
 1. Ubicar el archivo  `.mcp.json` y agregar el Token de Github creado previamente
 2. Abrir la terminal y ejecutar el comando `cp lab1/LAB1-paso-0.md CLAUDE.md` esto creará el archivo de instrucciones base.
@@ -57,6 +68,9 @@ En este lab construyes ese manual en **5 pasos**. En cada paso agregas una capa 
 ---
 #
 
+---
+## Laboratorio de Checkpoints - Instruction Files
+
 # Ejercico 1 - (Herramientas + Ambiente)
 
 `Prompt de Referencia`:
@@ -66,7 +80,7 @@ Analiza los problemas que ha tenido la aplicación astroshop en las últimas 2 h
 
 ---
 
-## Ejercico 2 — Método de análisis y las fuentes de datos
+## Ejercico 2 — Método de análisis, fuentes de datos & Tips de consulta
 
 Reemplaza tu instruction file por el del paso 1:
 ```
@@ -80,7 +94,7 @@ Abre chat nuevo, lanza el prompt de referencia.
 
 ---
 
-## Ejercico 3 — Tips y Reglas de eficiencia
+## Ejercico 3 — Reglas de Investigación, Rigor y Formato de salida
 
 Reemplaza tu instruction file por el del paso 2:
 ```
@@ -89,18 +103,6 @@ cp lab1/LAB1-paso-2.md CLAUDE.md
 
 Abre chat nuevo, lanza el prompt de referencia.
 
-
----
-
-## Paso 4 — Rigor (anti-alucinación) y Formato de salida
-
-Reemplaza tu instruction file por el del paso 3:
-
-```
-cp lab1/LAB1-paso-3.md CLAUDE.md
-```
-
-Abre chat nuevo, lanza el prompt de referencia.
 
 ---
 
